@@ -82,10 +82,18 @@
 
 		// Generate an ID
 	    var newId = ""; 
-	    var charset = "0123456789";
+	    var charset = "123456789";
 
-        for (var i = 0; i < 6; i++) {
+        for (var i = 0; i < 1; i++) {
+
      		newId += charset.charAt(Math.floor(Math.random() * charset.length));
+
+     		for (var j = 0; j < todos.length; j++) {
+     		 
+     			if (todos[j].id === parseInt(newId)) { 
+     				i--; 
+     			} 
+     		}
 		}
 
 		// If an ID was actually given, find the item and update each property
