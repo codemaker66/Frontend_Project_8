@@ -59,7 +59,15 @@ describe('controller', function () {
 	});
 
 	it('should show entries on start-up', function () {
-		// TODO: write test
+		//Test N°01
+		var todo = {title: "my todo"};
+		var todo2 = {title: "my second todo"};
+		var todos = [todo, todo2];
+		setUpModel(todos);
+
+		subject.showAll();
+
+		expect(view.render).toHaveBeenCalledWith('showEntries', todos);
 	});
 
 	describe('routing', function () {
@@ -83,11 +91,23 @@ describe('controller', function () {
 		});
 
 		it('should show active entries', function () {
-			// TODO: write test
+			//Test N°02
+			var todo = {title: 'my todo'};
+			setUpModel([todo]);
+
+			subject.setView('#/active');
+
+			expect(view.render).toHaveBeenCalledWith('showEntries', [todo]);
 		});
 
 		it('should show completed entries', function () {
-			// TODO: write test
+			//Test N°03
+			var todo = {title: 'my todo'};
+			setUpModel([todo]);
+
+			subject.setView('#/completed');
+
+			expect(view.render).toHaveBeenCalledWith('showEntries', [todo]);
 		});
 	});
 
