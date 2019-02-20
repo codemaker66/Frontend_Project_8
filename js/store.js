@@ -82,17 +82,25 @@
 
 		// Generate an ID
 	    var newId = ""; 
-	    var charset = "123456789";
+	    var charset = "0123456789";
 
         for (var i = 0; i < 1; i++) {
 
      		newId += charset.charAt(Math.floor(Math.random() * charset.length));
 
-     		for (var j = 0; j < todos.length; j++) {
+     		if (newId.charAt(0) !== "0") {
+
+     			for (var j = 0; j < todos.length; j++) {
      		 
-     			if (todos[j].id === parseInt(newId)) { 
-     				i--; 
-     			} 
+	     			if (todos[j].id == newId) { 
+	     				i--; 
+	     			}
+     			}
+     		}
+     		else
+     		{
+     			newId = "";
+     			i--;
      		}
 		}
 
@@ -130,13 +138,9 @@
 	Store.prototype.remove = function (id, callback) {
 		var data = JSON.parse(localStorage[this._dbName]);
 		var todos = data.todos;
-		var todoId;
 		
 		for (var i = 0; i < todos.length; i++) {
 			if (todos[i].id == id) {
-				todoId = todos[i].id;
-			}
-			if (todos[i].id == todoId) {
 				todos.splice(i, 1);
 			}
 		}
