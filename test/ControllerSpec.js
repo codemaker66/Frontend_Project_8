@@ -154,7 +154,7 @@ describe('controller', function () {
 	});
 
 	it('should highlight "All" filter by default', function () {
-		////Test N°04
+		//Test N°04
 		var todo = {title: "my todo"};
 		setUpModel([todo]);
 
@@ -164,7 +164,7 @@ describe('controller', function () {
 	});
 
 	it('should highlight "Active" filter when switching to active view', function () {
-		////Test N°05
+		//Test N°05
 		var todo = {title: "my todo"};
 		setUpModel([todo]);
 
@@ -175,17 +175,43 @@ describe('controller', function () {
 
 	describe('toggle all', function () {
 		it('should toggle all todos to completed', function () {
-			// TODO: write test
+			//Test N°06
+			var todo1 = {id: 1, title: "my first todo", completed: false};
+			var todo2 = {id: 2, title: "my second todo", completed: false};
+			var todo3 = {id: 3, title: "my third todo", completed: false};
+			var myTodos = [todo1, todo2, todo3];
+			setUpModel(myTodos);
+
+			subject.setView('');
+			view.trigger('toggleAll', {completed: true});
+
+			expect(model.read).toHaveBeenCalled();
 		});
 
 		it('should update the view', function () {
-			// TODO: write test
+			//Test N°07
+			var todo1 = {id: 1, title: "my first todo", completed: true};
+			var todo2 = {id: 2, title: "my second todo", completed: true};
+			var todo3 = {id: 3, title: "my third todo", completed: true};
+			var myTodos = [todo1, todo2, todo3];
+			setUpModel(myTodos);
+
+			subject.showCompleted();
+
+			expect(view.render).toHaveBeenCalledWith('showEntries', myTodos);
 		});
 	});
 
 	describe('new todo', function () {
 		it('should add a new todo to the model', function () {
-			// TODO: write test
+			//Test N°08
+			var todo = {id: 1, title: "my todo", completed: false};
+			setUpModel([todo]);
+
+			subject.setView('');
+			view.trigger('newTodo', todo.title);
+
+			expect(model.create).toHaveBeenCalled();
 		});
 
 		it('should add a new todo to the view', function () {
@@ -225,7 +251,14 @@ describe('controller', function () {
 
 	describe('element removal', function () {
 		it('should remove an entry from the model', function () {
-			// TODO: write test
+			//Test N°09
+			var todo = {id: 1, title: "my todo", completed: true};
+			setUpModel([todo]);
+
+			subject.setView('');
+			view.trigger('itemRemove', todo.id);
+
+			expect(model.remove).toHaveBeenCalled();
 		});
 
 		it('should remove an entry from the view', function () {
